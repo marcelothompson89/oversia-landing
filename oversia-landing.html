@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oversia - Monitoreo Inteligente de Información Regulatoria</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #002D62;
+            --secondary: #0066b2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 90px; /* MODIFICADO: Reducido de 90px a 70px */
+        }
+        
+        /* Estilos para el nuevo formato de navegación */
+        .navbar-custom {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 0px 0; /* MODIFICADO: Reducido de 10px a 5px */
+        }
+        
+        .navbar-container {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+        
+        /* Logo */
+        .navbar-logo {
+            display: flex;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 110px; /* MODIFICADO: Reducido de 150px a 130px */
+            height: auto;
+        }
+        
+        /* Menú de navegación */
+        .navbar-menu {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .navbar-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 0; /* MODIFICADO: Reducido de 8px a 5px */
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .navbar-link:hover {
+            color: var(--primary);
+        }
+        
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Botones de acción */
+        .button-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-login {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 16px; /* MODIFICADO: Reducido de 8px a 5px */
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(0, 45, 98, 0.1);
+        }
+        
+        .btn-demo {
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 20px; /* MODIFICADO: Reducido de 8px a 5px */
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+        
+        .btn-demo:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        /* Menú móvil */
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .menu-line {
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+            transition: all 0.3s;
+        }
+        
+        /* Hero section */
+        .hero {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0; /* MODIFICADO: Reducido de 80px a 60px */
+            margin-top: -10px; /* AÑADIDO: Para eliminar posible espacio entre navbar y hero */
+        }
+        
+        /* NUEVO: Limitador de ancho para hero section */
+        .hero-content { 
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        /* Estilos para las secciones */
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #e6f2ff;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .bg-light-custom {
+            background-color: #f8f9fa;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Estilos responsivos */
+        @media (max-width: 992px) {
+            .navbar-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                gap: 15px;
+                display: none;
+                align-items: center;
+                z-index: 999;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .button-wrapper .btn-login {
+                display: none;
+            }
+            
+            .menu-button {
+                display: block;
+            }
+            
+            /* Ajuste para versión móvil */
+            .navbar-container {
+                grid-template-columns: auto 1fr auto;
+            }
+            
+            .logo-img {
+                width: 120px; /* Logo más pequeño en móvil */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar con nuevo formato -->
+    <nav class="navbar-custom">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <a href="#" class="navbar-logo">
+                <img src="Oversia_logo.png" alt="Oversia Logo" class="logo-img">
+            </a>
+            
+            <!-- Menú de navegación -->
+            <div class="navbar-menu" id="navMenu">
+                <a href="#caracteristicas" class="navbar-link">Características</a>
+                <a href="#como-funciona" class="navbar-link">Cómo Funciona</a>
+                <a href="#precios" class="navbar-link">Precios</a>
+                <a href="#testimonios" class="navbar-link">Testimonios</a>
+                <a href="#contacto" class="navbar-link">Contacto</a>
+            </div>
+            
+            <!-- Botones y menú móvil -->
+            <div class="button-wrapper">
+                <a href="#contacto" class="btn-login">Iniciar Sesión</a>
+                <a href="#contacto" class="btn-demo">Solicitar Demo</a>
+                <button class="menu-button" id="menuButton">
+                    <div class="menu-icon">
+                        <div class="menu-line"></div>
+                        <div class="menu-line"></div>
+                        <div class="menu-line"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4">Supervisión inteligente de información regulatoria</h1>
+                        <p class="lead mb-4">Oversia es una plataforma que centraliza y filtra información regulatoria de múltiples fuentes, permitiendo a empresas anticiparse a cambios que impactan su operación.</p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="#como-funciona" class="btn btn-light btn-lg rounded-pill px-4">
+                                <i class="bi bi-play-circle me-2"></i>Ver Demo
+                            </a>
+                            <a href="#contacto" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                Solicitar Asesoría
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <video class="img-fluid rounded shadow" controls autoplay muted loop>
+                            <source src="demo_hero.mp4" type="video/mp4">
+                            Tu navegador no soporta videos HTML5.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características Section -->
+    <section id="caracteristicas" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Características Principales</h2>
+                    <p class="lead text-muted">Todo lo que necesitas para mantenerte al día con información crítica</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Alertas Personalizadas -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell-fill"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Alertas Personalizadas</h3>
+                        <p class="text-muted mb-0">Configura palabras clave específicas para recibir solo las alertas relevantes para tu negocio.</p>
+                    </div>
+                </div>
+                
+                <!-- Filtros Avanzados -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-funnel-fill"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Filtros Avanzados</h3>
+                        <p class="text-muted mb-0">Filtra por institución, país, fecha y más para encontrar exactamente lo que buscas.</p>
+                    </div>
+                </div>
+                
+                <!-- Cobertura Internacional -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Cobertura Internacional</h3>
+                        <p class="text-muted mb-0">Monitoreo de alertas en múltiples países e instituciones para una visión global.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo Funciona Section -->
+    <section id="como-funciona" class="section-padding bg-light-custom">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Cómo Funciona</h2>
+                    <p class="lead text-muted">Un sistema simple y eficiente para mantenerte informado</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <video class="img-fluid rounded shadow" controls autoplay muted loop>
+                        <source src="como_funciona.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="feature-icon" style="margin: 0;">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="h5 fw-bold">1. Configura tus Palabras Clave</h3>
+                            <p class="text-muted">Define términos específicos relevantes para tu negocio o intereses.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="feature-icon" style="margin: 0;">
+                                <i class="bi bi-building"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="h5 fw-bold">2. Definir Fuentes a Monitorear</h3>
+                            <p class="text-muted">Selecciona las instituciones y países que deseas seguir.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <div class="feature-icon" style="margin: 0;">
+                                <i class="bi bi-bell"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="h5 fw-bold">3. Recibe Notificaciones</h3>
+                            <p class="text-muted">Obtén alertas en tiempo real cuando aparezca información relevante.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <div class="me-4">
+                            <div class="feature-icon" style="margin: 0;">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="h5 fw-bold">4. Analiza y Toma Acciones</h3>
+                            <p class="text-muted">Utiliza la información para tomar decisiones estratégicas oportunas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Precios Section -->
+    <section id="precios" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Planes y Precios</h2>
+                    <p class="lead text-muted">Soluciones flexibles para equipos de todos los tamaños</p>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <!-- Plan Básico -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm text-center">
+                        <div class="card-header bg-white py-3">
+                            <h3 class="h4 mb-0">Básico</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="display-5 fw-bold my-3">$99<span class="h6 text-muted">/mes</span></h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>1 usuario</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>5 palabras clave</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>3 fuentes a monitorear</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Notificaciones por email</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Alertas ilimitadas</li>
+                            </ul>
+                            <a href="#contacto" class="btn btn-outline-primary rounded-pill px-4 mt-3">Comenzar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plan Profesional -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow border-primary">
+                        <div class="card-header bg-primary text-white py-3 text-center">
+                            <h3 class="h4 mb-0">Profesional</h3>
+                            <span class="badge bg-warning position-absolute top-0 end-0 translate-middle">Más popular</span>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <h4 class="display-5 fw-bold my-3">$149<span class="h6 text-muted">/mes</span></h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>5 usuarios</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>15 palabras clave</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>10 fuentes a monitorear</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Notificaciones por email</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>API access</li>
+                            </ul>
+                            <a href="#contacto" class="btn btn-primary rounded-pill px-4 mt-3">Comenzar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plan Empresarial -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm text-center">
+                        <div class="card-header bg-white py-3">
+                            <h3 class="h4 mb-0">Empresarial</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="display-5 fw-bold my-3">$199<span class="h6 text-muted">/mes</span></h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Usuarios ilimitados</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Palabras clave ilimitadas</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Fuentes ilimitadas</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Reportes avanzados</li>
+                                <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>API access</li>
+                            </ul>
+                            <a href="#contacto" class="btn btn-outline-primary rounded-pill px-4 mt-3">Contactar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section id="testimonios" class="section-padding bg-light-custom">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Lo que dicen nuestros clientes</h2>
+                    <p class="lead text-muted">Empresas que confían en nuestro sistema de alertas</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://i.ibb.co/Qrhp1z3/testimonial-1.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
+                            <div>
+                                <h4 class="h5 mb-1">María Rodríguez</h4>
+                                <p class="text-muted mb-0">Directora de Regulación</p>
+                            </div>
+                        </div>
+                        <p class="fst-italic">"Este sistema nos ha permitido estar al día con todas las alertas regulatorias. Ha sido fundamental para garantizar que cumplimos con los requisitos en todos los países donde operamos."</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://i.ibb.co/Jn2NTfQ/testimonial-2.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
+                            <div>
+                                <h4 class="h5 mb-1">Carlos Mendoza</h4>
+                                <p class="text-muted mb-0">Gerente de Cumplimiento</p>
+                            </div>
+                        </div>
+                        <p class="fst-italic">"La capacidad de filtrar alertas por país e institución ha sido extremadamente útil para nuestro equipo. Podemos asignar alertas específicas a diferentes departamentos según la relevancia."</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://i.ibb.co/xfbD374/testimonial-3.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
+                            <div>
+                                <h4 class="h5 mb-1">Ana Gómez</h4>
+                                <p class="text-muted mb-0">Directora de Operaciones</p>
+                            </div>
+                        </div>
+                        <p class="fst-italic">"Implementamos el sistema hace 6 meses y ha transformado nuestra forma de trabajar. Ahora podemos responder rápidamente a cambios regulatorios y mantenernos siempre un paso adelante."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4">¿Listo para comenzar?</h2>
+                    <p class="lead text-muted mb-0">Contáctanos para una demostración personalizada</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="company" class="form-label">Empresa</label>
+                                    <input type="text" class="form-control" id="company" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Mensaje</label>
+                                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                                </div>
+                                <div class="col-12 mt-4 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5">Enviar Solicitud</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <a class="d-inline-flex align-items-center mb-3 text-white text-decoration-none" href="#">
+                        <img src="Oversia_logo_blanco.png" alt="Oversia Logo" class="me-2" style="height: 100px;">
+                    </a>
+                    <p class="mb-3">Visión inteligente sobre lo que realmente importa.</p>
+                    <div class="mb-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#caracteristicas" class="text-white text-decoration-none">Características</a></li>
+                        <li class="mb-2"><a href="#como-funciona" class="text-white text-decoration-none">Cómo Funciona</a></li>
+                        <li class="mb-2"><a href="#precios" class="text-white text-decoration-none">Precios</a></li>
+                        <li class="mb-2"><a href="#testimonios" class="text-white text-decoration-none">Testimonios</a></li>
+                        <li class="mb-2"><a href="#contacto" class="text-white text-decoration-none">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-5 col-md-6">
+                    <h5 class="fw-bold mb-3">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@oversia.com</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +54 9 11 3002-7524</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Buenos Aires, Argentina</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2025 Oversia. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Términos de servicio</a>
+                    <a href="#" class="text-white text-decoration-none">Política de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Mostrar indicador de carga
+          const submitButton = this.querySelector('button[type="submit"]');
+          const originalButtonText = submitButton.innerHTML;
+          submitButton.innerHTML = 'Enviando...';
+          submitButton.disabled = true;
+          
+          // Obtener valores del formulario
+          const formData = {
+            name: document.getElementById('name').value,
+            company: document.getElementById('company').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            message: document.getElementById('message').value
+          };
+          
+          // Enviar a Google Sheets
+          fetch('https://script.google.com/macros/s/AKfycbxwlFhd8PjTx3y0Sizhh4W7QE0nX-IoQ3pErDrNxm9ZIjlZp2ADVccYQjGU8TCXwwNXhA/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors' // Importante para evitar problemas de CORS
+          })
+          .then(response => {
+            // Como estamos usando no-cors, no podemos acceder a la respuesta directamente
+            // Simplemente asumimos éxito
+            alert('¡Gracias por tu interés! Te contactaremos a la brevedad.');
+            document.getElementById('contactForm').reset();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al enviar el formulario. Inténtalo de nuevo más tarde.');
+          })
+          .finally(() => {
+            // Restaurar el botón
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
+          });
+        });
+        
+        // Menú móvil (tu código existente)
+        document.addEventListener('DOMContentLoaded', function() {
+          const menuButton = document.getElementById('menuButton');
+          const navMenu = document.getElementById('navMenu');
+          
+          menuButton.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+          });
+          
+          // Cerrar menú al hacer clic en un enlace
+          const navLinks = document.querySelectorAll('.navbar-link');
+          navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+              if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+              }
+            });
+          });
+        });
+      </script>
+</body>
+</html>
