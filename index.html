@@ -206,6 +206,42 @@
             color: var(--primary);
             border-color: var(--primary);
         }
+
+        /* Posiciona los controles por fuera del carrusel */
+        #testimonialCarousel {
+            position: relative;
+            overflow: hidden;
+            padding: 0 60px; /* espacio para que los botones no tapen los cards */
+        }
+
+        /* Botones prev y next bien posicionados */
+        #testimonialCarousel .carousel-control-prev,
+        #testimonialCarousel .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #002D62;
+            border-radius: 50%;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Íconos más pequeños y centrados */
+        #testimonialCarousel .carousel-control-prev-icon,
+        #testimonialCarousel .carousel-control-next-icon {
+            background-size: 70% 70%;
+        }
+
+        /* Posición específica fuera del carrusel */
+        #testimonialCarousel .carousel-control-prev {
+            left: 0;
+        }
+
+        #testimonialCarousel .carousel-control-next {
+            right: 0;
+        }
+
         
         /* Estilos responsivos */
         @media (max-width: 992px) {
@@ -518,55 +554,86 @@
 
     <!-- Testimonios Section -->
     <section id="testimonios" class="section-padding bg-light-custom">
-        <div class="container">
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-lg-8">
-                    <h2 class="fw-bold mb-4">Lo que dicen nuestros clientes</h2>
-                    <p class="lead text-muted">Empresas que confían en nuestro sistema de alertas</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="https://i.ibb.co/Qrhp1z3/testimonial-1.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
-                            <div>
-                                <h4 class="h5 mb-1">María Rodríguez</h4>
-                                <p class="text-muted mb-0">Directora de Regulación</p>
-                            </div>
-                        </div>
-                        <p class="fst-italic">"Este sistema nos ha permitido estar al día con todas las alertas regulatorias. Ha sido fundamental para garantizar que cumplimos con los requisitos en todos los países donde operamos."</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="https://i.ibb.co/Jn2NTfQ/testimonial-2.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
-                            <div>
-                                <h4 class="h5 mb-1">Carlos Mendoza</h4>
-                                <p class="text-muted mb-0">Gerente de Cumplimiento</p>
-                            </div>
-                        </div>
-                        <p class="fst-italic">"La capacidad de filtrar alertas por país e institución ha sido extremadamente útil para nuestro equipo. Podemos asignar alertas específicas a diferentes departamentos según la relevancia."</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="https://i.ibb.co/xfbD374/testimonial-3.jpg" alt="Cliente" class="rounded-circle me-3" width="60" height="60">
-                            <div>
-                                <h4 class="h5 mb-1">Ana Gómez</h4>
-                                <p class="text-muted mb-0">Directora de Operaciones</p>
-                            </div>
-                        </div>
-                        <p class="fst-italic">"Implementamos el sistema hace 6 meses y ha transformado nuestra forma de trabajar. Ahora podemos responder rápidamente a cambios regulatorios y mantenernos siempre un paso adelante."</p>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-8">
+            <h2 class="fw-bold mb-4">Lo que dicen nuestros clientes</h2>
+            <p class="lead text-muted">Personas que confían en nuestro sistema de alertas</p>
         </div>
+        </div>
+        <div class="position-relative">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Directora de Regulación</h5>
+                    <p class="fst-italic mb-0">"Este sistema nos ha permitido estar al día con todas las alertas regulatorias. Ha sido fundamental para garantizar que cumplimos con los requisitos en todos los países donde operamos."</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Gerente de Cumplimiento</h5>
+                    <p class="fst-italic mb-0">"La capacidad de filtrar alertas por país e institución ha sido extremadamente útil para nuestro equipo. Podemos asignar alertas específicas a diferentes departamentos según la relevancia."</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Directora de Operaciones</h5>
+                    <p class="fst-italic mb-0">"Implementamos el sistema hace 6 meses y ha transformado nuestra forma de trabajar. Ahora podemos responder rápidamente a cambios regulatorios y mantenernos siempre un paso adelante."</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Especialista en Asuntos Regulatorios</h5>
+                    <p class="fst-italic mb-0">"Oversia simplificó un proceso que antes nos llevaba horas. Ahora dedicamos más tiempo al análisis estratégico que a la búsqueda de información."</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Responsable de Calidad y Compliance</h5>
+                    <p class="fst-italic mb-0">"La plataforma se volvió indispensable para nuestro equipo de calidad. Recibimos alertas clave sin tener que estar constantemente revisando fuentes manualmente."</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                <div class="card h-100 shadow-sm p-4">
+                    <h5 class="text-primary mb-2">Analista Legal Regional</h5>
+                    <p class="fst-italic mb-0">"La plataforma nos da visibilidad anticipada sobre cambios normativos que afectan nuestras operaciones. Ahora podemos reaccionar con más agilidad y respaldar nuestras decisiones con información confiable."</p>
+                </div>
+                </div>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- Controles personalizados -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #002D62; border-radius: 50%; width: 40px; height: 40px;"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #002D62; border-radius: 50%; width: 40px; height: 40px;"></span>
+            </button>
+        </div>
+        </div>
+    </div>
     </section>
+
+
 
 
     <!-- FAQ Section -->
@@ -575,7 +642,7 @@
         <div class="row justify-content-center text-center mb-5">
         <div class="col-lg-8">
             <h2 class="fw-bold mb-4">Preguntas Frecuentes</h2>
-            <p class="lead text-muted">Respondemos algunas dudas comunes sobre Oversia y su enfoque regulatorio en salud</p>
+            <p class="lead text-muted">Respondemos algunas dudas comunes sobre Oversia</p>
         </div>
         </div>
 
